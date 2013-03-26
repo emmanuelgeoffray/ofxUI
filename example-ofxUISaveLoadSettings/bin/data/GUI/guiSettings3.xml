@@ -191,12 +191,12 @@
 <Widget>
     <Kind>20</Kind>
     <Name>IMAGETGL</Name>
-    <Value>1</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>21</Kind>
     <Name>R2SLIDER</Name>
-    <Value>59.072502136</Value>
+    <Value>50.000000000</Value>
 </Widget>
 <Widget>
     <Kind>17</Kind>
