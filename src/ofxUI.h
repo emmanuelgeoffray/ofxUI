@@ -115,6 +115,7 @@ enum ofxWidgetType
     OFX_UI_WIDGET_2DGRAPH = 41,
     OFX_UI_WIDGET_SUPERCANVAS = 42,
     OFX_UI_WIDGET_ROTARYSLIDERPOINTINGDIRECTION = 43, 
+    OFX_UI_WIDGET_ROTARYCIRCLESLIDER = 44, 
 };
 
 enum ofxWidgetOrientation
@@ -270,5 +271,6 @@ enum ofxUIThemeType
 #include "ofxUIScrollableCanvas.h"
 #include "ofxUISuperCanvas.h"
 #include "ofxUIRotarySliderPointingDirection.h"
+#include "ofxUIRotaryCircleSlider.h"
 
 #endif

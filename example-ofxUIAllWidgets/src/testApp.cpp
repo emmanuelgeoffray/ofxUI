@@ -408,6 +408,9 @@ void testApp::setGUI3()
     gui3->addWidgetDown(new ofxUIRotarySlider(dim*4, 0, 100, 50, "R2SLIDER")); 			
     gui3->addWidgetDown(new ofxUILabel("ROTARY SLIDER POINTING DIRECTION", OFX_UI_FONT_MEDIUM)); 			
     gui3->addWidgetDown(new ofxUIRotarySliderPointingDirection(dim*4, 0, 100, 50, "R2SLIDERPOINTING")); 			
+    gui3->addWidgetDown(new ofxUILabel("ROTARY CIRCLE SLIDER", OFX_UI_FONT_MEDIUM)); 			
+    //gui3->addWidgetDown(new ofxUIRotaryCircleSlider(w dim*4, y 0, w 100, 50, "R2SLIDERCIRCLEROTARY")); 			
+    gui3->addWidgetDown(new ofxUIRotaryCircleSlider("R2SLIDERCIRCLEROTARY", ofPoint(0,100), ofPoint(0,100), ofPoint(50, 50), dim*8));
     //gui3->addWidgetDown(new ofxUIRotarySlider(dim*4, 0, 100, 50, "R2SLIDERPOINTING")); 			
     gui3->addSpacer(length-xInit, 2);
     gui3->addWidgetDown(new ofxUILabel("DROP DOWN", OFX_UI_FONT_MEDIUM)); 				
