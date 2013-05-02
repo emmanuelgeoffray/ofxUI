@@ -78,7 +78,7 @@ public:
         stickyDistance = 32;
         hit = false; 
         snapping = true; 
-#ifdef TARGET_OPENGLES
+#ifdef OFX_UI_TARGET_TOUCH
         touchId = -1; 
 #endif
     }
@@ -276,8 +276,8 @@ public:
     {
         if(draw_back)
         {
-            ofFill();
-            ofSetColor(color_back);
+            ofxUIFill();
+            ofxUISetColor(color_back);
             sRect->draw();            
         }
     }
@@ -287,7 +287,7 @@ public:
         if(draw_outline)
         {
             ofNoFill();
-            ofSetColor(color_outline);
+            ofxUISetColor(color_outline);
             sRect->draw();
         }
     }
@@ -297,7 +297,7 @@ public:
         if(draw_outline_highlight)
         {
             ofNoFill();
-            ofSetColor(color_outline_highlight);
+            ofxUISetColor(color_outline_highlight);
             sRect->draw();
         }
     }
@@ -306,8 +306,8 @@ public:
     {
         if(draw_fill)
         {
-            ofFill();
-            ofSetColor(color_fill);
+            ofxUIFill();
+            ofxUISetColor(color_fill);
             sRect->draw();
         }
     }
@@ -316,8 +316,8 @@ public:
     {
         if(draw_fill_highlight)
         {
-            ofFill();
-            ofSetColor(color_fill_highlight);
+            ofxUIFill();
+            ofxUISetColor(color_fill_highlight);
             sRect->draw();
         }
     }
@@ -326,8 +326,8 @@ public:
     {
 		if(draw_padded_rect && !embedded)
 		{
-            ofFill();
-            ofSetColor(color_padded_rect);
+            ofxUIFill();
+            ofxUISetColor(color_padded_rect);
 			paddedRect->draw();
 		}
     }
@@ -337,19 +337,19 @@ public:
         if(draw_padded_rect_outline && !embedded)
 		{
             ofNoFill();
-            ofSetColor(color_padded_rect_outline);
+            ofxUISetColor(color_padded_rect_outline);
 			paddedRect->draw();
 		}
     }
     
     virtual void draw()
     {
-        ofPushStyle();
+        ofxUIPushStyle();
         
         glDisable(GL_DEPTH_TEST);
         glDisable(GL_LIGHTING);
         ofEnableBlendMode(OF_BLENDMODE_ALPHA);
-        ofSetRectMode(OF_RECTMODE_CORNER);
+        ofxUISetRectMode(OFX_UI_RECTMODE_CORNER);
         ofSetLineWidth(1.0);
         
         drawPadded();
@@ -374,7 +374,7 @@ public:
             }
 		}
         
-        ofPopStyle();
+        ofxUIPopStyle();
     }
     
     virtual void setPosition(int x, int y)
@@ -401,25 +401,26 @@ public:
         sRect->draw();
     }
     	
-#ifdef TARGET_OPENGLES
-    void touchDown(ofTouchEventArgs& touch)
+#ifdef OFX_UI_TARGET_TOUCH
+    
+    void touchDown(float x, float y, int id)
     {        
-        if(sRect->inside(touch.x, touch.y))
+        if(sRect->inside(x, y))
         {
 			for(vector<ofxUIWidget *>::iterator it = widgets.begin(); it != widgets.end(); ++it)
 			{
-                if((*it)->isHit(touch.x, touch.y))
+                if((*it)->isHit(x, y))
                 {            
                     if((*it)->isDraggable())
                     {
                         hitWidget = true;                                                                        
                     }
-                    (*it)->touchDown(touch); 
+                    (*it)->touchDown(x, y, id);
                 }
 			}
 		}        
         
-        if(sRect->inside(touch.x, touch.y) && touch.id == 0)
+        if(sRect->inside(x, y) && id == 0)
         {
             hit = true; 
             isScrolling = false; 
@@ -427,26 +428,26 @@ public:
         }
     }
     
-    void touchMoved(ofTouchEventArgs& touch) 
+    void touchMoved(float x, float y, int id)
     {
         for(vector<ofxUIWidget *>::iterator it = widgets.begin(); it != widgets.end(); ++it)
         {
-            if((*it)->isVisible())	(*it)->touchMoved(touch);
+            if((*it)->isVisible())	(*it)->touchMoved(x, y, id);
         }
         
-        if(hit && touch.id == 0)
+        if(hit && id == 0)
         {
             if(!hitWidget)
             {
                 if(isScrolling != true)
                 {
                     isScrolling = true; 
-                    ppos = ofPoint(touch.x,touch.y);
+                    ppos = ofPoint(x, y);
                     vel.set(0); 
                 }
                 else
                 {
-                    pos = ofPoint(touch.x, touch.y);             
+                    pos = ofPoint(x, y);             
                     vel = pos-ppos; 
                     if(scrollX) rect->x +=vel.x; 
                     if(scrollY) rect->y +=vel.y;             
@@ -456,11 +457,11 @@ public:
         }        
     }
     
-    void touchUp(ofTouchEventArgs& touch) 
+    void touchUp(float x, float y, int id)
     {
         for(vector<ofxUIWidget *>::iterator it = widgets.begin(); it != widgets.end(); ++it)
         {
-            if((*it)->isVisible())	(*it)->touchUp(touch); 
+            if((*it)->isVisible())	(*it)->touchUp(x, y, id);
         }
         
         hit = false; 
@@ -468,15 +469,15 @@ public:
         if(isScrolling)
         {
             isScrolling = false; 
-            pos = ofPoint(touch.x,touch.y);
+            pos = ofPoint(x, y);
         }        
     }
     
-    void touchCancelled(ofTouchEventArgs& touch) 
+    void touchCancelled(float x, float y, int id)
     {
         for(vector<ofxUIWidget *>::iterator it = widgets.begin(); it != widgets.end(); ++it)
         {
-            if((*it)->isVisible())	(*it)->touchUp(touch); 
+            if((*it)->isVisible())	(*it)->touchUp(x, y, id);
         }
         
         hit = false; 
@@ -484,7 +485,7 @@ public:
         if(isScrolling)
         {
             isScrolling = false; 
-            pos = ofPoint(touch.x,touch.y);
+            pos = ofPoint(x, y); 
         }        
     } 
     
