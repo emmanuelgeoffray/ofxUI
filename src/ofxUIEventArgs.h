@@ -22,24 +22,25 @@
  
  **********************************************************************************/
 
-#ifndef OFXUI_EVENT_ARGS
-#define OFXUI_EVENT_ARGS
+#pragma once
+
+#include "ofxUIWrapper.h"
 
 class ofxUIWidget;
+class ofxUIButton;
+class ofxUIToggle; 
+class ofxUISlider;
 
 class ofxUIEventArgs 
 {   
 public:
-	ofxUIEventArgs()
-    {
-        widget = NULL; 
-    }
+	ofxUIEventArgs();
+    ofxUIEventArgs(ofxUIWidget *_widget);
+    ofxUIButton *getButton();
+    ofxUIToggle *getToggle();
+    ofxUISlider *getSlider();
+    string getName();
+    int getKind();
     
-    ofxUIEventArgs(ofxUIWidget *_widget)
-    {
-        widget = _widget; 
-    }
-    ofxUIWidget *widget; 
+    ofxUIWidget *widget;
 }; 
-
-#endif

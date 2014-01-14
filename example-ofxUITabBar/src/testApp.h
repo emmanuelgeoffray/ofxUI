@@ -22,15 +22,13 @@ class testApp : public ofBaseApp
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
 	
-	ofxUISuperCanvas *gui;   	
+    ofxUITabBar *guiTabBar;
+    ofxUICanvas *guiB;
 	void guiEvent(ofxUIEventArgs &e);
-    bool drawFill; 
-	float red, green, blue, alpha; 	
-        
-    ofColor backgroundColor; 
-    float radius; 
-    int resolution;
-    ofPoint position;    
+    bool drawPadding; 
+	float red, green, blue;
+    
+    ofImage middle; 
 };
 
 #endif

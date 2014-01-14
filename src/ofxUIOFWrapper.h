@@ -22,8 +22,7 @@
  
  **********************************************************************************/
 
-#ifndef OFXUI_OFWRAPPER
-#define OFXUI_OFWRAPPER
+#pragma once
 
 #include "ofMain.h"
 #include "ofPoint.h"
@@ -343,72 +342,6 @@ public:
 
 #endif
 };
-//class ofxUIVec2f : public ofVec2f
-//{
-//public:
-//    ofxUIVec2f() : ofVec2f()
-//    {
-//        
-//    }
-//    
-//    ofxUIVec2f( float _x, float _y ) : ofVec2f( _x, _y)
-//    {
-//        
-//    }
-//};
-
-//class ofxUIFont : public ofTrueTypeFont
-//{
-//public:
-//    ofxUIFont() : ofTrueTypeFont()
-//    {
-//        
-//    }
-//};
-
-//class ofxUIColor : public ofColor
-//{
-//public:
-//    ofxUIColor() : ofColor()
-//    {
-//        
-//    }
-//    
-//    ofxUIColor(float _r, float _g, float _b, float _a) : ofColor(_r, _g, _b, _a)
-//    {
-//    
-//    }
-//
-//    ofxUIColor(float _gray, float _a) : ofColor(_gray, _a)
-//    {
-//    
-//    }
-//
-//    ofxUIColor(const ofColor& color) : ofColor(color)
-//    {
-//    
-//    }
-//
-//    ofxUIColor(const ofxUIColor& color) : ofColor(color)
-//    {
-//    
-//    }
-//
-//    ofxUIColor(const ofxUIColor& color, const float _a) : ofColor(color, _a)
-//    {
-//    
-//    }
-//
-//
-//    ofxUIColor & operator = (ofxUIColor const & color)
-//    {
-//        r = color.r;
-//        g = color.g;
-//        b = color.b;
-//        a = color.a;
-//        return *this;
-//    }
-//};
 
 static void ofxUISetColor(ofxUIColor color, float alpha)
 {
@@ -433,10 +366,16 @@ static void ofxUINoFill()
 static void ofxUIPushStyle()
 {
     ofPushStyle();
+#ifndef TARGET_OPENGLES
+    glPushAttrib(GL_ALL_ATTRIB_BITS);
+#endif
 }
 
 static void ofxUIPopStyle()
 {
+#ifndef TARGET_OPENGLES    
+    glPopAttrib();
+#endif
     ofPopStyle();
 }
 
@@ -479,5 +418,3 @@ static int ofxUIGetWidth()
 {
     return ofGetWidth();
 }
-
-#endif
